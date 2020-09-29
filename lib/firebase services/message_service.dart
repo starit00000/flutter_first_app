@@ -24,9 +24,10 @@ class MessageService{
       Map<dynamic, dynamic> msgMap = snapshot.value;
       msgMap.forEach((key, value) {
         list.add(value);
+        print(value.toString());
       });
     });
-    return list;
+    return await list;
   }
 
   Future<List<dynamic>> funny() async {

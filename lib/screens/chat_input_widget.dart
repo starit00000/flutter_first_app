@@ -31,7 +31,7 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
                       borderSide: BorderSide(color: Colors.blue, width: 1.0),
                     ),
                     hintText: 'Message',
-                    labelText: 'Message'
+                    //labelText: 'Message'
                 ),
               ),
             ),
