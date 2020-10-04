@@ -12,38 +12,43 @@ class _ChatListWidgetState extends State<ChatListWidget> {
   final MessageService messageService = new MessageService();
   List<dynamic> messageList = new List();
 
-  @override
-  void didUpdateWidget(ChatListWidget old) {
-    super.didUpdateWidget(old);
-    /*print('didUpdateWidget()');
-    Future<List<dynamic>> futureMsgList = messageService.getMessageList();
-    futureMsgList.then((value) => messageList = value);
-    print(messageList);*/
-  }
+
 
   @override
   Widget build(BuildContext context) {
-
     var ref = FirebaseDatabase.instance.reference().child('Message');
     List<String> list = [];
 
+    // controllers
+    final _listVIewController = new ScrollController();
+    // initialize listview controller
+    _listVIewController.animateTo(
+      _listVIewController.position.maxScrollExtent,
+      duration: Duration(seconds: 1),
+      curve: Curves.fastOutSlowIn,
+    );
+
     return StreamBuilder(
       stream: ref.onValue,
-      builder: (context, AsyncSnapshot<Event> snapshot){
+      builder: (context, AsyncSnapshot<Event> snapshot) {
         messageList.clear();
-        if(snapshot.hasData){
+        if (snapshot.hasData) {
           DataSnapshot shot = snapshot.data.snapshot;
           Map<dynamic, dynamic> map = shot.value;
-          if(map != null){
-            map.forEach((key, value) {
+          var newMap = Map.fromEntries(
+              map.entries.toList()..sort((e1, e2) => e1.key.compareTo(e2.key)));
+          //int.parse(e1.value["SortOrder"]).compareTo(int.parse(e2.value["SortOrder"]))));
+          if (newMap != null) {
+            newMap.forEach((key, value) {
               messageList.add(value.toString());
             });
           }
           print(list);
           return ListView.builder(
-            reverse: true,
             scrollDirection: Axis.vertical,
+            controller: _listVIewController,
             shrinkWrap: true,
+            reverse: true,
             itemCount: messageList.length,
             itemBuilder: (context, index) {
               return Card(
@@ -58,6 +63,5 @@ class _ChatListWidgetState extends State<ChatListWidget> {
         return Center(child: CircularProgressIndicator());
       },
     );
-
   }
 }

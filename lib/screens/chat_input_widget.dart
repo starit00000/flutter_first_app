@@ -20,7 +20,7 @@ class _ChatInputWidgetState extends State<ChatInputWidget> {
             flex: 6,
             child: Container(
               height: 45,
-              margin: EdgeInsets.only(right: 5),
+              margin: EdgeInsets.all(5),
               child: TextField(
                 controller: msgController,
                 decoration: InputDecoration(

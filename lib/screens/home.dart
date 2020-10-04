@@ -11,19 +11,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<String> list = [
-    'Zero',
-    'One',
-    'Two',
-    'Three',
-    'Four',
-    'Five',
-    'Six',
-    'Seven',
-    'Eight',
-    'Nine',
-    'Ten'
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -36,16 +23,6 @@ class _HomeState extends State<Home> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FlatButton(
-                color: Colors.blue,
-                child: Text(
-                  'Bottom Navigation',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () {
-                  _navigateToBottom(context);
-                },
-              ),
               Container(
                 child: FlatButton(
                   color: Colors.blue,
@@ -58,11 +35,6 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
-  }
-
-  void _navigateToBottom(BuildContext context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => BottomNavigationScreen()));
   }
 
   void _navigateToChatScreen(BuildContext context){
